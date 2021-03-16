@@ -1,0 +1,18 @@
+/build/**
+/coverage/**
+/dist/**
+/docs/**
+/jsdoc/**
+/templates/**
+/tests/bench/**
+/tests/fixtures/**
+/tests/performance/**
+/tmp/**
+/lib/rules/utils/unicode/is-combining-character.js
+test.js
+!.eslintrc.js
+
+# Expo
+/.expo
+/android
+/ios

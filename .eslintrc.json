@@ -1,0 +1,78 @@
+{
+  "env": {
+    "browser": true,
+    "es6": true,
+    "jest/globals": true
+  },
+  "extends": [
+    "airbnb",
+    "airbnb/hooks",
+    "plugin:jest/recommended",
+    "plugin:jsdoc/recommended",
+    "plugin:react/recommended",
+    "prettier",
+    "plugin:prettier/recommended"
+  ],
+  "globals": {
+    "Atomics": "readonly",
+    "SharedArrayBuffer": "readonly"
+  },
+  "parser": "@babel/eslint-parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 2018,
+    "sourceType": "module"
+  },
+  "plugins": ["babel", "jest", "jsdoc", "prettier", "react"],
+  "rules": {
+    "arrow-body-style": [
+      "error",
+      "as-needed",
+      {
+        "requireReturnForObjectLiteral": false
+      }
+    ],
+    "class-methods-use-this": "off",
+    "jest/no-disabled-tests": "warn",
+    "jest/no-focused-tests": "error",
+    "jest/no-identical-title": "error",
+    "jest/prefer-to-have-length": "warn",
+    "jest/valid-expect": "error",
+    "jsdoc/check-tag-names": "off",
+    "react/prop-types": "off",
+    "react/sort-prop-types": "warn",
+    "react/jsx-props-no-spreading": "off",
+    "react/jsx-sort-props": [
+      "warn",
+      { "callbacksLast": true, "shorthandFirst": true }
+    ],
+    "react/jsx-sort-default-props": "warn",
+    "no-console": "off",
+    "no-nested-ternary": "off",
+    "no-plusplus": "off",
+    "no-shadow": "off",
+    "no-underscore-dangle": [
+      "error",
+      { "allowAfterSuper": true, "allowAfterThis": true }
+    ],
+    "no-use-before-define": ["error", { "functions": false }],
+    "quote-props": ["error", "as-needed"],
+    "quotes": [
+      "error",
+      "double",
+      { "allowTemplateLiterals": true, "avoidEscape": true }
+    ]
+  },
+  "settings": {
+    "jsdoc": {
+      "tagNamePreference": {
+        "defineTags": ["swagger"]
+      }
+    },
+    "react": {
+      "version": "detect"
+    }
+  }
+}

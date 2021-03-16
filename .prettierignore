@@ -1,0 +1,12 @@
+package-lock.json
+testEslint/
+testProject/
+testTslint/
+testWorkspaceFolder/
+
+dist/
+
+# Expo
+.expo/
+android/
+ios/
