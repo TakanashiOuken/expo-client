@@ -61,7 +61,8 @@ const LoginScreen = ({ navigation }) => {
         const user = await login(email.value, password.value);
         navigation.reset({
           index: 0,
-          routes: [{ name: "Dashboard", params: { user } }],
+          // routes: [{ name: "Dashboard", params: { user } }],
+          routes: [{ name: "ArticleListScreen", params: { user } }],
         });
       }
     } catch (error) {
