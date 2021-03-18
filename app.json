@@ -5,8 +5,13 @@
     "name": "react-native-client",
     "slug": "react-native-client",
     "version": "1.0.0",
-    "assetBundlePatterns": [
-      "**/*"
-    ]
+    "assetBundlePatterns": ["**/*"],
+    "extra": {
+      "test": "test",
+      "REACT_NATIVE_API_HOST": "http://10.0.1.10:1337/",
+      "REACT_NATIVE_ARTICLES_API_PATH": "articles/",
+      "REACT_NATIVE_LOGIN_API_PATH": "auth/local/",
+      "REACT_NATIVE_REGISTER_API_PATH": "auth/local/register/"
+    }
   }
 }
