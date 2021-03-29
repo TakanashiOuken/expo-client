@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, FlatList, View } from "react-native";
+import { FlatList, StyleSheet, View } from "react-native";
 import { Text } from "react-native-paper";
 import { theme } from "../core/theme";
 
@@ -15,16 +15,30 @@ const styles = StyleSheet.create({
   },
 });
 
-const List = ({ data, titleKey = "title" }) => (
-  <FlatList
-    data={data}
-    keyExtractor={(item) => item.id}
-    renderItem={({ item }) => (
-      <View style={styles.item}>
-        <Text style={styles.title}>{item[titleKey]}</Text>
-      </View>
-    )}
-  />
-);
+const List = ({ data, titleKeys = ["title"], onEndReached, pageSize = 10 }) => {
+  const findTitle = (item) => {
+    const itemMap = new Map(Object.entries(item));
+    for (let index = 0; index < titleKeys.length; index++) {
+      const title = itemMap.get(titleKeys[index]);
+      if (title) return title;
+    }
+    return item.articleEntryId;
+  };
+
+  return (
+    <FlatList
+      data={data}
+      initialNumToRender={pageSize}
+      keyExtractor={(item) => item.id}
+      renderItem={({ item }) => (
+        <View key={item.id} style={styles.item}>
+          <Text style={styles.title}>{findTitle(item)}</Text>
+        </View>
+      )}
+      onEndReached={onEndReached}
+      onEndReachedThreshold={0.5}
+    />
+  );
+};
 
 export default List;
