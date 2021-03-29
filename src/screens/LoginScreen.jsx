@@ -1,3 +1,4 @@
+import { useMutation } from "@apollo/client";
 import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
 import {
@@ -14,9 +15,10 @@ import Header from "../components/Header";
 import Logo from "../components/Logo";
 import TextInput from "../components/TextInput";
 import { theme } from "../core/theme";
-import { login } from "../helpers/api";
 import { emailValidator } from "../helpers/emailValidator";
+import { LOGIN_USER } from "../helpers/graphql";
 import { passwordValidator } from "../helpers/passwordValidator";
+import { removeItem, setItem } from "../helpers/storage";
 
 const styles = StyleSheet.create({
   forgotPassword: {
@@ -41,7 +43,20 @@ const styles = StyleSheet.create({
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState({ value: "test@clsa.com", error: "" });
   const [password, setPassword] = useState({ value: "password", error: "" });
-  const [isLoading, setIsLoading] = useState(false);
+
+  const [loginUser, { loading: isLoading }] = useMutation(LOGIN_USER, {
+    onCompleted: async ({ login: { jwt, user } } = {}) => {
+      await setItem("token", jwt);
+      navigation.reset({
+        index: 0,
+        routes: [{ name: "ArticleListScreen", params: { user } }],
+      });
+    },
+    onError: (error) => {
+      console.log("error", error);
+      console.error("Login Failed :(");
+    },
+  });
 
   const validate = () => {
     const emailError = emailValidator(email.value);
@@ -52,24 +67,6 @@ const LoginScreen = ({ navigation }) => {
       return false;
     }
     return true;
-  };
-
-  const onLoginPressed = async () => {
-    try {
-      setIsLoading(true);
-      if (validate()) {
-        const user = await login(email.value, password.value);
-        navigation.reset({
-          index: 0,
-          // routes: [{ name: "Dashboard", params: { user } }],
-          routes: [{ name: "ArticleListScreen", params: { user } }],
-        });
-      }
-    } catch (error) {
-      console.error("Login Failed :(");
-    } finally {
-      setIsLoading(false);
-    }
   };
 
   return (
@@ -105,7 +102,17 @@ const LoginScreen = ({ navigation }) => {
           <Text style={styles.forgot}>Forgot your password?</Text>
         </TouchableOpacity>
       </View>
-      <Button mode="contained" onPress={onLoginPressed}>
+      <Button
+        mode="contained"
+        onPress={async () => {
+          await removeItem("token");
+          if (validate()) {
+            loginUser({
+              variables: { identifier: email.value, password: password.value },
+            });
+          }
+        }}
+      >
         {isLoading ? <ActivityIndicator /> : "Login"}
       </Button>
       <View style={styles.row}>
