@@ -40,8 +40,16 @@ const styles = StyleSheet.create({
   },
 });
 
-const LoginScreen = ({ navigation }) => {
-  const [email, setEmail] = useState({ value: "test@clsa.com", error: "" });
+const LoginScreen = ({
+  route: {
+    params: { user },
+  },
+  navigation,
+}) => {
+  const [email, setEmail] = useState({
+    value: user.email || "test@clsa.com",
+    error: "",
+  });
   const [password, setPassword] = useState({ value: "password", error: "" });
 
   const [loginUser, { loading: isLoading }] = useMutation(LOGIN_USER, {
@@ -53,7 +61,7 @@ const LoginScreen = ({ navigation }) => {
       });
     },
     onError: (error) => {
-      console.log("error", error);
+      console.log("[LoginScreen] error", error);
       console.error("Login Failed :(");
     },
   });

@@ -1,3 +1,5 @@
+import { useMutation } from "@apollo/client";
+import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
 import {
   ActivityIndicator,
@@ -13,10 +15,11 @@ import Header from "../components/Header";
 import Logo from "../components/Logo";
 import TextInput from "../components/TextInput";
 import { theme } from "../core/theme";
-import { register } from "../helpers/api";
 import { emailValidator } from "../helpers/emailValidator";
+import { REGISTER_USER } from "../helpers/graphql";
 import { nameValidator } from "../helpers/nameValidator";
 import { passwordValidator } from "../helpers/passwordValidator";
+import { removeItem } from "../helpers/storage";
 
 const styles = StyleSheet.create({
   row: {
@@ -33,7 +36,19 @@ const RegisterScreen = ({ navigation }) => {
   const [username, setUsername] = useState({ value: "", error: "" });
   const [email, setEmail] = useState({ value: "", error: "" });
   const [password, setPassword] = useState({ value: "", error: "" });
-  const [isLoading, setIsLoading] = useState(false);
+
+  const [registerUser, { loading: isLoading }] = useMutation(REGISTER_USER, {
+    onCompleted: async ({ register: { user } } = {}) => {
+      navigation.reset({
+        index: 0,
+        routes: [{ name: "LoginScreen", params: { user } }],
+      });
+    },
+    onError: (error) => {
+      console.log("[RegisterScreen] error", error);
+      console.error("Register Failed :(");
+    },
+  });
 
   const validate = () => {
     const usernameError = nameValidator(username.value);
@@ -46,27 +61,6 @@ const RegisterScreen = ({ navigation }) => {
       return false;
     }
     return true;
-  };
-
-  const onSignUpPressed = async () => {
-    try {
-      setIsLoading(true);
-      if (validate()) {
-        const user = await register(
-          username.value,
-          email.value,
-          password.value
-        );
-        navigation.reset({
-          index: 0,
-          routes: [{ name: "Dashboard", params: { user } }],
-        });
-      }
-    } catch (error) {
-      console.error("Register Failed :(");
-    } finally {
-      setIsLoading(false);
-    }
   };
 
   return (
@@ -106,7 +100,18 @@ const RegisterScreen = ({ navigation }) => {
       <Button
         mode="contained"
         style={{ marginTop: 24 }}
-        onPress={onSignUpPressed}
+        onPress={async () => {
+          await removeItem("token");
+          if (validate()) {
+            registerUser({
+              variables: {
+                username: username.value,
+                email: email.value,
+                password: password.value,
+              },
+            });
+          }
+        }}
       >
         {isLoading ? <ActivityIndicator /> : "Sign Up"}
       </Button>
@@ -116,6 +121,7 @@ const RegisterScreen = ({ navigation }) => {
           <Text style={styles.link}>Login</Text>
         </TouchableOpacity>
       </View>
+      <StatusBar networkActivityIndicatorVisible={isLoading} />
     </Background>
   );
 };
