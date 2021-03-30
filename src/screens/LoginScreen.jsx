@@ -50,7 +50,10 @@ const LoginScreen = ({
     value: user.email || "test@clsa.com",
     error: "",
   });
-  const [password, setPassword] = useState({ value: "password", error: "" });
+  const [password, setPassword] = useState({
+    value: user ? "" : "password",
+    error: "",
+  });
 
   const [loginUser, { loading: isLoading }] = useMutation(LOGIN_USER, {
     onCompleted: async ({ login: { jwt, user } } = {}) => {

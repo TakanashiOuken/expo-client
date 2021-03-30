@@ -31,6 +31,24 @@ const client = new ApolloClient({
 
 export default client;
 
+export const REGISTER_USER = gql`
+  mutation RegisterUser(
+    $username: String!
+    $email: String!
+    $password: String!
+  ) {
+    register(
+      input: { username: $username, email: $email, password: $password }
+    ) {
+      jwt
+      user {
+        username
+        email
+      }
+    }
+  }
+`;
+
 export const LOGIN_USER = gql`
   mutation LoginUser($identifier: String!, $password: String!) {
     login(input: { identifier: $identifier, password: $password }) {
