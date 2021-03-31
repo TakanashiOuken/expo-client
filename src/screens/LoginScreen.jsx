@@ -8,6 +8,7 @@ import {
   View,
 } from "react-native";
 import { Text } from "react-native-paper";
+import _get from "lodash-es/get";
 import BackButton from "../components/BackButton";
 import Background from "../components/Background";
 import Button from "../components/Button";
@@ -40,14 +41,9 @@ const styles = StyleSheet.create({
   },
 });
 
-const LoginScreen = ({
-  route: {
-    params: { user },
-  },
-  navigation,
-}) => {
+const LoginScreen = ({ route: { params: { user } = {} }, navigation }) => {
   const [email, setEmail] = useState({
-    value: user.email || "test@clsa.com",
+    value: _get(user, "email", "test@clsa.com"),
     error: "",
   });
   const [password, setPassword] = useState({

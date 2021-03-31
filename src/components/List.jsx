@@ -29,7 +29,7 @@ const List = ({ data, titleKeys = ["title"], onEndReached, pageSize = 10 }) => {
     <FlatList
       data={data}
       initialNumToRender={pageSize}
-      keyExtractor={(item) => item.id}
+      keyExtractor={(item) => `${item.id}`}
       renderItem={({ item }) => (
         <View key={item.id} style={styles.item}>
           <Text style={styles.title}>{findTitle(item)}</Text>
