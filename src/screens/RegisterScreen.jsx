@@ -13,7 +13,7 @@ import Header from "../components/Header";
 import Logo from "../components/Logo";
 import TextInput from "../components/TextInput";
 import { theme } from "../core/theme";
-import { register } from "../helpers/api";
+import { registerUser } from "../helpers/api";
 import { emailValidator } from "../helpers/emailValidator";
 import { nameValidator } from "../helpers/nameValidator";
 import { passwordValidator } from "../helpers/passwordValidator";
@@ -30,10 +30,10 @@ const styles = StyleSheet.create({
 });
 
 const RegisterScreen = ({ navigation }) => {
-  const [username, setUsername] = useState({ value: "", error: "" });
   const [email, setEmail] = useState({ value: "", error: "" });
-  const [password, setPassword] = useState({ value: "", error: "" });
   const [isLoading, setIsLoading] = useState(false);
+  const [password, setPassword] = useState({ value: "", error: "" });
+  const [username, setUsername] = useState({ value: "", error: "" });
 
   const validate = () => {
     const usernameError = nameValidator(username.value);
@@ -52,20 +52,21 @@ const RegisterScreen = ({ navigation }) => {
     try {
       setIsLoading(true);
       if (validate()) {
-        const user = await register(
+        const user = await registerUser(
           username.value,
           email.value,
           password.value
         );
+        setIsLoading(false);
         navigation.reset({
           index: 0,
-          routes: [{ name: "Dashboard", params: { user } }],
+          routes: [{ name: "LoginScreen", params: { user } }],
         });
       }
     } catch (error) {
-      console.error("Register Failed :(");
-    } finally {
       setIsLoading(false);
+      console.log("error", error);
+      console.error("Register Failed :(");
     }
   };
 

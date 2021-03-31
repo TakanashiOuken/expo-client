@@ -7,6 +7,7 @@ import {
   View,
 } from "react-native";
 import { Text } from "react-native-paper";
+import _get from "lodash-es/get";
 import BackButton from "../components/BackButton";
 import Background from "../components/Background";
 import Button from "../components/Button";
@@ -14,9 +15,10 @@ import Header from "../components/Header";
 import Logo from "../components/Logo";
 import TextInput from "../components/TextInput";
 import { theme } from "../core/theme";
-import { login } from "../helpers/api";
+import { loginUser } from "../helpers/api";
 import { emailValidator } from "../helpers/emailValidator";
 import { passwordValidator } from "../helpers/passwordValidator";
+import { removeItem } from "../helpers/storage";
 
 const styles = StyleSheet.create({
   forgotPassword: {
@@ -38,10 +40,16 @@ const styles = StyleSheet.create({
   },
 });
 
-const LoginScreen = ({ navigation }) => {
-  const [email, setEmail] = useState({ value: "test@clsa.com", error: "" });
-  const [password, setPassword] = useState({ value: "password", error: "" });
+const LoginScreen = ({ route: { params: { user } = {} }, navigation }) => {
+  const [email, setEmail] = useState({
+    value: _get(user, "email", "test@clsa.com"),
+    error: "",
+  });
   const [isLoading, setIsLoading] = useState(false);
+  const [password, setPassword] = useState({
+    value: user ? "" : "password",
+    error: "",
+  });
 
   const validate = () => {
     const emailError = emailValidator(email.value);
@@ -58,17 +66,18 @@ const LoginScreen = ({ navigation }) => {
     try {
       setIsLoading(true);
       if (validate()) {
-        const user = await login(email.value, password.value);
+        await removeItem("token");
+        const user = await loginUser(email.value, password.value);
+        setIsLoading(false);
         navigation.reset({
           index: 0,
-          // routes: [{ name: "Dashboard", params: { user } }],
           routes: [{ name: "ArticleListScreen", params: { user } }],
         });
       }
     } catch (error) {
-      console.error("Login Failed :(");
-    } finally {
       setIsLoading(false);
+      console.log("error", error);
+      console.error("Login Failed :(");
     }
   };
 
