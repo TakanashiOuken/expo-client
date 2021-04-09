@@ -71,7 +71,7 @@ const LoginScreen = ({ route: { params: { user } = {} }, navigation }) => {
         setIsLoading(false);
         navigation.reset({
           index: 0,
-          routes: [{ name: "ArticleListScreen", params: { user } }],
+          routes: [{ name: "BottomNavScreen", params: { user } }],
         });
       }
     } catch (error) {

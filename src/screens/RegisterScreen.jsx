@@ -60,7 +60,7 @@ const RegisterScreen = ({ navigation }) => {
         setIsLoading(false);
         navigation.reset({
           index: 0,
-          routes: [{ name: "LoginScreen", params: { user } }],
+          routes: [{ name: "BottomNavScreen", params: { user } }],
         });
       }
     } catch (error) {

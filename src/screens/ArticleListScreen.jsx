@@ -28,7 +28,6 @@ const ArticleList = ({
   route: {
     params: { user },
   },
-  navigation,
 }) => {
   const sort = "publishedDate:desc";
 
@@ -79,18 +78,6 @@ const ArticleList = ({
         />
         {isLoading ? <ActivityIndicator /> : null}
       </SafeAreaView>
-      <Button
-        mode="outlined"
-        onPress={async () => {
-          await removeItem("token");
-          navigation.reset({
-            index: 0,
-            routes: [{ name: "StartScreen" }],
-          });
-        }}
-      >
-        Logout
-      </Button>
     </Background>
   );
 };
