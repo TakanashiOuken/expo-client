@@ -9,13 +9,11 @@ import {
   StyleSheet,
 } from "react-native";
 import Background from "../components/Background";
-import Button from "../components/Button";
 import Header from "../components/Header";
 import List from "../components/List";
 import Logo from "../components/Logo";
 // import Paragraph from "../components/Paragraph";
 import { FETCH_ARTICLES } from "../helpers/graphql";
-import { removeItem } from "../helpers/storage";
 
 const styles = StyleSheet.create({
   listContainer: {
