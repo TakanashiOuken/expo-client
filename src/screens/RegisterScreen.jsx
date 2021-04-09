@@ -33,15 +33,15 @@ const styles = StyleSheet.create({
 });
 
 const RegisterScreen = ({ navigation }) => {
-  const [username, setUsername] = useState({ value: "", error: "" });
   const [email, setEmail] = useState({ value: "", error: "" });
   const [password, setPassword] = useState({ value: "", error: "" });
+  const [username, setUsername] = useState({ value: "", error: "" });
 
   const [registerUser, { loading: isLoading }] = useMutation(REGISTER_USER, {
     onCompleted: async ({ register: { user } } = {}) => {
       navigation.reset({
         index: 0,
-        routes: [{ name: "LoginScreen", params: { user } }],
+        routes: [{ name: "BottomNavScreen", params: { user } }],
       });
     },
     onError: (error) => {
@@ -65,7 +65,7 @@ const RegisterScreen = ({ navigation }) => {
 
   return (
     <Background>
-      <BackButton goBack={navigation.goBack} />
+      {/* <BackButton goBack={navigation.goBack} /> */}
       <Logo />
       <Header>Create Account</Header>
       <TextInput

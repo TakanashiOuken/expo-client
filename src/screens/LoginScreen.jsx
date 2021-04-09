@@ -16,10 +16,18 @@ import Header from "../components/Header";
 import Logo from "../components/Logo";
 import TextInput from "../components/TextInput";
 import { theme } from "../core/theme";
+<<<<<<< HEAD
+=======
+import { loginUser } from "../helpers/api";
+>>>>>>> 637b882742ec3df4f67c6a5cf712165e4b61c238
 import { emailValidator } from "../helpers/emailValidator";
 import { LOGIN_USER } from "../helpers/graphql";
 import { passwordValidator } from "../helpers/passwordValidator";
+<<<<<<< HEAD
 import { removeItem, setItem } from "../helpers/storage";
+=======
+import { removeItem } from "../helpers/storage";
+>>>>>>> 637b882742ec3df4f67c6a5cf712165e4b61c238
 
 const styles = StyleSheet.create({
   forgotPassword: {
@@ -43,7 +51,7 @@ const styles = StyleSheet.create({
 
 const LoginScreen = ({ route: { params: { user } = {} }, navigation }) => {
   const [email, setEmail] = useState({
-    value: _get(user, "email", "test@clsa.com"),
+    value: _get(user, "email", "test@test.com"),
     error: "",
   });
   const [password, setPassword] = useState({
@@ -56,9 +64,9 @@ const LoginScreen = ({ route: { params: { user } = {} }, navigation }) => {
       await setItem("token", jwt);
       navigation.reset({
         index: 0,
-        routes: [{ name: "ArticleListScreen", params: { user } }],
+        routes: [{ name: "BottomNavScreen", params: { user } }],
       });
-    },
+  },
     onError: (error) => {
       console.log("[LoginScreen] error", error);
       console.error("Login Failed :(");
@@ -78,7 +86,7 @@ const LoginScreen = ({ route: { params: { user } = {} }, navigation }) => {
 
   return (
     <Background>
-      <BackButton goBack={navigation.goBack} />
+      {/* <BackButton goBack={navigation.goBack} /> */}
       <Logo />
       <Header>Welcome back.</Header>
       <TextInput

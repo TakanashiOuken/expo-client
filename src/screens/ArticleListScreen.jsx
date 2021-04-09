@@ -1,6 +1,11 @@
+<<<<<<< HEAD
 import { useQuery } from "@apollo/client";
 import _isEmpty from "lodash-es/isEmpty";
 import React, { useState } from "react";
+=======
+import _isEmpty from "lodash-es/isEmpty";
+import React, { useEffect, useRef, useState } from "react";
+>>>>>>> 637b882742ec3df4f67c6a5cf712165e4b61c238
 import {
   ActivityIndicator,
   Dimensions,
@@ -29,7 +34,6 @@ const ArticleList = ({
   route: {
     params: { user },
   },
-  navigation,
 }) => {
   const [articles, setArticles] = useState([]);
   const [page, setPage] = useState(0);
@@ -67,18 +71,6 @@ const ArticleList = ({
         />
         {isLoading ? <ActivityIndicator /> : null}
       </SafeAreaView>
-      <Button
-        mode="outlined"
-        onPress={async () => {
-          await removeItem("token");
-          navigation.reset({
-            index: 0,
-            routes: [{ name: "StartScreen" }],
-          });
-        }}
-      >
-        Logout
-      </Button>
     </Background>
   );
 };
