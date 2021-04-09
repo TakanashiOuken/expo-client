@@ -83,7 +83,7 @@ const LoginScreen = ({ route: { params: { user } = {} }, navigation }) => {
 
   return (
     <Background>
-      <BackButton goBack={navigation.goBack} />
+      {/* <BackButton goBack={navigation.goBack} /> */}
       <Logo />
       <Header>Welcome back.</Header>
       <TextInput
