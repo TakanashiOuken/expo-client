@@ -16,18 +16,10 @@ import Header from "../components/Header";
 import Logo from "../components/Logo";
 import TextInput from "../components/TextInput";
 import { theme } from "../core/theme";
-<<<<<<< HEAD
-=======
-import { loginUser } from "../helpers/api";
->>>>>>> 637b882742ec3df4f67c6a5cf712165e4b61c238
 import { emailValidator } from "../helpers/emailValidator";
 import { LOGIN_USER } from "../helpers/graphql";
 import { passwordValidator } from "../helpers/passwordValidator";
-<<<<<<< HEAD
 import { removeItem, setItem } from "../helpers/storage";
-=======
-import { removeItem } from "../helpers/storage";
->>>>>>> 637b882742ec3df4f67c6a5cf712165e4b61c238
 
 const styles = StyleSheet.create({
   forgotPassword: {
@@ -66,7 +58,7 @@ const LoginScreen = ({ route: { params: { user } = {} }, navigation }) => {
         index: 0,
         routes: [{ name: "BottomNavScreen", params: { user } }],
       });
-  },
+    },
     onError: (error) => {
       console.log("[LoginScreen] error", error);
       console.error("Login Failed :(");
