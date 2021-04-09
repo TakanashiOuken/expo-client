@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
 
 const LoginScreen = ({ route: { params: { user } = {} }, navigation }) => {
   const [email, setEmail] = useState({
-    value: _get(user, "email", "test@clsa.com"),
+    value: _get(user, "email", "test@test.com"),
     error: "",
   });
   const [isLoading, setIsLoading] = useState(false);

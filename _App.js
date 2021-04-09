@@ -4,8 +4,8 @@ import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 
 const url = "http://192.168.10.172:1337/auth/local/";
-const identifier = "timothy.wang@clsa.com";
-const password = "ClsaStrapi";
+const identifier = "test@test.com";
+const password = "asdfsadf";
 
 const styles = StyleSheet.create({
   container: {
@@ -50,7 +50,7 @@ const App = () => {
         <Text>User: {JSON.stringify(user)}</Text>
       )}
       {/* <Text>Open up App.js to start working on your app!</Text> */}
-      <StatusBar style="auto" networkActivityIndicatorVisible={isLoading} />
+      <StatusBar networkActivityIndicatorVisible={isLoading} style="auto" />
     </View>
   );
 };
