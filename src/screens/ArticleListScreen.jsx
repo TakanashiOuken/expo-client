@@ -1,5 +1,5 @@
 import _isEmpty from "lodash-es/isEmpty";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
   ActivityIndicator,
   Dimensions,
@@ -37,29 +37,29 @@ const ArticleList = ({
 
   const articlesRef = useRef([]);
 
-  useEffect(() => {
-    const fetchData = async (params) => {
-      try {
-        setIsLoading(true);
-        const nextArticles = await fetchArticles(params);
-        if (!_isEmpty(nextArticles)) {
-          articlesRef.current = [...articlesRef.current, ...nextArticles];
-          setArticles(articlesRef.current);
-        }
-      } catch (error) {
-        console.log("error", error);
-        console.error(error);
-      } finally {
-        setIsLoading(false);
+  const fetchData = useCallback(async (params) => {
+    try {
+      setIsLoading(true);
+      const nextArticles = await fetchArticles(params);
+      if (!_isEmpty(nextArticles)) {
+        articlesRef.current = [...articlesRef.current, ...nextArticles];
+        setArticles(articlesRef.current);
       }
-    };
+    } catch (error) {
+      console.log("error", error);
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
 
+  useEffect(() => {
     fetchData({
       _limit: pageSize,
       _sort: sort,
       _start: page * pageSize,
     });
-  }, [page, pageSize]);
+  }, [fetchData, page, pageSize]);
 
   return (
     <Background>
