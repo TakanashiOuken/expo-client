@@ -47,7 +47,7 @@ const LoginScreen = ({ route: { params: { user } = {} }, navigation }) => {
   });
   const [isLoading, setIsLoading] = useState(false);
   const [password, setPassword] = useState({
-    value: user ? "" : "password",
+    value: user ? "" : "asdfasdf",
     error: "",
   });
 
