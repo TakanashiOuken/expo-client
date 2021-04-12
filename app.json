@@ -1,9 +1,9 @@
 {
-  "name": "react-native-client",
-  "displayName": "react-native-client",
+  "name": "expo-client",
+  "displayName": "expo-client",
   "expo": {
-    "name": "react-native-client",
-    "slug": "react-native-client",
+    "name": "expo-client",
+    "slug": "expo-client",
     "version": "1.0.0",
     "assetBundlePatterns": ["**/*"],
     "extra": {
