@@ -8,13 +8,12 @@ import {
   StyleSheet,
 } from "react-native";
 import Background from "../components/Background";
-import Button from "../components/Button";
+// import Button from "../components/Button";
 import Header from "../components/Header";
 import List from "../components/List";
 import Logo from "../components/Logo";
 // import Paragraph from "../components/Paragraph";
 import { fetchArticles } from "../helpers/api";
-import { removeItem } from "../helpers/storage";
 
 const styles = StyleSheet.create({
   listContainer: {
