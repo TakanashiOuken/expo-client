@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
 import _isEmpty from "lodash-es/isEmpty";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   ActivityIndicator,
   Dimensions,
@@ -38,11 +38,16 @@ const ArticleList = ({
       if (!_isEmpty(nextArticles)) setArticles([...articles, ...nextArticles]);
     },
     onError: (error) => {
-      if (error) {
-        console.error(`Error: ${error.message}`);
-      }
+      console.log("error", error);
+      console.error(`Error: ${error.message}`);
     },
   });
+
+  useEffect(() => {
+    fetchMore({
+      variables: { limit: pageSize, start: page * pageSize },
+    });
+  }, [fetchMore, page, pageSize]);
 
   return (
     <Background>
@@ -55,11 +60,7 @@ const ArticleList = ({
           pageSize={pageSize}
           titleKeys={["reportName", "title"]}
           onEndReached={() => {
-            const nextPage = page + 1;
-            setPage(nextPage);
-            fetchMore({
-              variables: { limit: pageSize, start: nextPage * pageSize },
-            });
+            setPage(page + 1);
           }}
         />
         {isLoading ? <ActivityIndicator /> : null}
