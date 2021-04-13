@@ -67,8 +67,15 @@ export const FETCH_ARTICLES = gql`
       articleEntryId
       brief
       id
+      isPublic
+      publishedDate
       reportName
+      src
+      thumbnail {
+        url
+      }
       title
+      url
     }
   }
 `;
