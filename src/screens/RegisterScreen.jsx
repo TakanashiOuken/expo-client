@@ -6,11 +6,9 @@ import {
   View,
 } from "react-native";
 import { Text } from "react-native-paper";
-import BackButton from "../components/BackButton";
 import Background from "../components/Background";
 import Button from "../components/Button";
 import Header from "../components/Header";
-import Logo from "../components/Logo";
 import TextInput from "../components/TextInput";
 import { theme } from "../core/theme";
 import { registerUser } from "../helpers/api";
@@ -72,8 +70,6 @@ const RegisterScreen = ({ navigation }) => {
 
   return (
     <Background>
-      {/* <BackButton goBack={navigation.goBack} /> */}
-      <Logo />
       <Header>Create Account</Header>
       <TextInput
         error={!!username.error}

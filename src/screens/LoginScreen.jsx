@@ -1,4 +1,5 @@
 import { StatusBar } from "expo-status-bar";
+import _get from "lodash-es/get";
 import React, { useState } from "react";
 import {
   ActivityIndicator,
@@ -7,12 +8,9 @@ import {
   View,
 } from "react-native";
 import { Text } from "react-native-paper";
-import _get from "lodash-es/get";
-import BackButton from "../components/BackButton";
 import Background from "../components/Background";
 import Button from "../components/Button";
 import Header from "../components/Header";
-import Logo from "../components/Logo";
 import TextInput from "../components/TextInput";
 import { theme } from "../core/theme";
 import { loginUser } from "../helpers/api";
@@ -83,8 +81,6 @@ const LoginScreen = ({ route: { params: { user } = {} }, navigation }) => {
 
   return (
     <Background>
-      {/* <BackButton goBack={navigation.goBack} /> */}
-      <Logo />
       <Header>Welcome back.</Header>
       <TextInput
         autoCapitalize="none"
