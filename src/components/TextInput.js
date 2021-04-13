@@ -22,6 +22,8 @@ const TextInput = ({ errorText, description, ...props }) => (
 const styles = StyleSheet.create({
   container: {
     width: '100%',
+    paddingLeft: 20,
+    paddingRight: 20,
     marginVertical: 12,
   },
   input: {

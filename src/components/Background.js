@@ -1,17 +1,14 @@
 import React from 'react'
-import { ImageBackground, StyleSheet, KeyboardAvoidingView } from 'react-native'
+import { View, ImageBackground, StyleSheet, KeyboardAvoidingView } from 'react-native'
 import { theme } from '../core/theme'
+import Constants from "expo-constants"
 
 const Background = ({ children }) => (
-  <ImageBackground
-    source={require('../assets/background_dot.png')}
-    resizeMode="repeat"
-    style={styles.background}
-  >
+  <View style={styles.background}>
     <KeyboardAvoidingView style={styles.container} behavior="padding">
       {children}
     </KeyboardAvoidingView>
-  </ImageBackground>
+  </View>
 )
 
 const styles = StyleSheet.create({
@@ -19,16 +16,17 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '100%',
     backgroundColor: theme.colors.surface,
+    paddingTop: Constants.statusBarHeight + 20,
   },
   container: {
     flex: 1,
-    padding: 20,
     width: '100%',
-    maxWidth: 340,
     alignSelf: 'center',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+    //alignItems: 'center',
+    // paddingLeft: 20,
+    // paddingRight: 20
+    // =justifyContent: 'center',
+  }
 })
 
 export default Background

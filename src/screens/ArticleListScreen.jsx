@@ -6,6 +6,7 @@ import {
   SafeAreaView,
   StatusBar,
   StyleSheet,
+  Text,
 } from "react-native";
 import Background from "../components/Background";
 import Button from "../components/Button";
@@ -20,7 +21,6 @@ const styles = StyleSheet.create({
   listContainer: {
     flex: 1,
     marginTop: StatusBar.currentHeight || 0,
-    maxHeight: Dimensions.get("window").height / 2,
   },
 });
 
@@ -54,6 +54,7 @@ const ArticleList = ({
         setIsLoading(false);
       }
     };
+    // console.log(articles)
 
     fetchData({
       _limit: pageSize,
@@ -64,14 +65,28 @@ const ArticleList = ({
 
   return (
     <Background>
-      <Logo />
-      <Header>Hi {user.username}</Header>
+      {/* <Header>Hi {user.username}</Header> */}
       {/* <Paragraph>{JSON.stringify(user)}</Paragraph> */}
       <SafeAreaView style={styles.listContainer}>
+        <Text
+          style={
+            (styles.box,
+            {
+              textAlign: "left",
+              paddingLeft: 10,
+              paddingRight: 10,
+              alignSelf: "stretch",
+              fontSize: 20,
+              fontWeight: "bold",
+            })
+          }
+        >
+          Asia Morning Line
+        </Text>
         <List
           data={articles}
           pageSize={pageSize}
-          titleKeys={["reportName", "title"]}
+          titleKeys={["id"]}
           onEndReached={() => {
             setPage(page + 1);
           }}

@@ -29,9 +29,11 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: "row",
     marginTop: 4,
+    marginLeft: 20,
   },
   forgot: {
     fontSize: 13,
+    marginRight: 20,
     color: theme.colors.secondary,
   },
   link: {
@@ -47,7 +49,7 @@ const LoginScreen = ({ route: { params: { user } = {} }, navigation }) => {
   });
   const [isLoading, setIsLoading] = useState(false);
   const [password, setPassword] = useState({
-    value: user ? "" : "password",
+    value: user ? "" : "asdfasdf",
     error: "",
   });
 
@@ -84,7 +86,7 @@ const LoginScreen = ({ route: { params: { user } = {} }, navigation }) => {
   return (
     <Background>
       {/* <BackButton goBack={navigation.goBack} /> */}
-      <Logo />
+
       <Header>Welcome back.</Header>
       <TextInput
         autoCapitalize="none"

@@ -22,6 +22,7 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: "row",
     marginTop: 4,
+    marginLeft: 20,
   },
   link: {
     fontWeight: "bold",
@@ -73,7 +74,6 @@ const RegisterScreen = ({ navigation }) => {
   return (
     <Background>
       {/* <BackButton goBack={navigation.goBack} /> */}
-      <Logo />
       <Header>Create Account</Header>
       <TextInput
         error={!!username.error}

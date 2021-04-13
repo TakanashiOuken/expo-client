@@ -11,7 +11,7 @@ import {
   LoginScreen,
   LogoutScreen,
   RegisterScreen,
-  StartScreen,
+  StartScreen
 } from "./src/screens";
 
 const Stack = createStackNavigator();
@@ -28,10 +28,7 @@ const App = () => (
         <Stack.Screen component={ArticleListScreen} name="ArticleListScreen" />
         <Stack.Screen component={BottomNavScreen} name="BottomNavScreen" />
         <Stack.Screen component={Dashboard} name="Dashboard" />
-        <Stack.Screen
-          component={ForgotPasswordScreen}
-          name="ForgotPasswordScreen"
-        />
+        <Stack.Screen component={ForgotPasswordScreen} name="ForgotPasswordScreen" />
         <Stack.Screen component={LoginScreen} name="LoginScreen" />
         <Stack.Screen component={LogoutScreen} name="LogoutScreen" />
         <Stack.Screen component={RegisterScreen} name="RegisterScreen" />
