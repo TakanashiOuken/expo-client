@@ -24,26 +24,21 @@ const ArticleList = ({
     params: { user },
   },
 }) => {
-  const [articles, setArticles] = useState([]);
+  // const [articles, setArticles] = useState([]);
+  // const [nextArticles, setNextArticles] = useState([]);
   const [page, setPage] = useState(0);
   const [pageSize, setPageSize] = useState(10);
 
-  const { fetchMore, loading: isLoading } = useQuery(FETCH_ARTICLES, {
-    variables: { limit: pageSize, start: page * pageSize },
-    onCompleted: ({ articles: nextArticles = [] }) => {
-      if (!_isEmpty(nextArticles)) setArticles([...articles, ...nextArticles]);
-    },
-    onError: (error) => {
-      console.log("error", error);
-      console.error(`Error: ${error.message}`);
-    },
-  });
-
-  useEffect(() => {
-    fetchMore({
+  const { data: { articles } = {}, fetchMore, loading: isLoading } = useQuery(
+    FETCH_ARTICLES,
+    {
       variables: { limit: pageSize, start: page * pageSize },
-    });
-  }, [fetchMore, page, pageSize]);
+      onError: (error) => {
+        console.log("error", error);
+        console.error(`Error: ${error.message}`);
+      },
+    }
+  );
 
   return (
     <Background>
@@ -53,7 +48,11 @@ const ArticleList = ({
           data={articles}
           pageSize={pageSize}
           onEndReached={() => {
-            setPage(page + 1);
+            const nextPage = page + 1;
+            setPage(nextPage);
+            fetchMore({
+              variables: { limit: pageSize, start: nextPage * pageSize },
+            });
           }}
         />
         {isLoading ? <ActivityIndicator /> : null}
