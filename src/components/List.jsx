@@ -1,23 +1,14 @@
-import React, { useState, useMemo, useEffect } from "react";
+import React from "react";
 import { FlatList } from "react-native";
 import ListItem from "./ListItem";
 
-const List = ({
-  data,
-  onEndReached,
-  onRefresh,
-  pageSize = 10,
-  refreshing = false,
-}) => (
+const List = ({ pageSize = 10, ...props }) => (
   <FlatList
-    data={data}
     initialNumToRender={pageSize}
     keyExtractor={(item) => `${item.id}`}
-    refreshing={refreshing}
     renderItem={({ item }) => <ListItem item={item} />}
-    onEndReached={onEndReached}
     onEndReachedThreshold={0.5}
-    onRefresh={onRefresh}
+    {...props}
   />
 );
 export default List;
