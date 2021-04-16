@@ -76,19 +76,40 @@ export const LOGIN_USER = gql`
 
 export const FETCH_ARTICLES = gql`
   query FetchArticles($limit: Int, $start: Int) {
-    articles(sort: "publishedDate:desc", limit: $limit, start: $start) {
-      articleEntryId
-      brief
+    articles(sort: "ra_pub_date:desc", limit: $limit, start: $start) {
       id
-      isPublic
-      publishedDate
-      reportName
-      src
-      thumbnail {
-        url
-      }
-      title
+      articleEntryId
       url
+      ra_title
+      ra_brief_info
+      ra_pages
+      ra_printed_flag
+      ra_pub_date
+      ra_c_date
+      ra_is_special_report
+      ra_thumbnail_url
+      ra_report_url
+      ra_report_type_id
+    }
+  }
+`;
+
+export const FETCH_ARTICLE = gql`
+  query FetchArticle($id: ID!) {
+    article(id: $id) {
+      id
+      articleEntryId
+      url
+      ra_title
+      ra_brief_info
+      ra_pages
+      ra_printed_flag
+      ra_pub_date
+      ra_c_date
+      ra_is_special_report
+      ra_thumbnail_url
+      ra_report_url
+      ra_report_type_id
     }
   }
 `;

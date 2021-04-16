@@ -1,3 +1,4 @@
+export { default as ArticleDetailScreen } from "./ArticleDetailScreen";
 export { default as ArticleListScreen } from "./ArticleListScreen";
 export { default as BottomNavScreen } from "./BottomNavScreen";
 export { default as Dashboard } from "./Dashboard";
