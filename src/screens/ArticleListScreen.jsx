@@ -1,6 +1,5 @@
 import { NetworkStatus, useQuery } from "@apollo/client";
-import React, { useEffect, useState, useMemo, useCallback } from "react";
-
+import React, { useEffect, useState } from "react";
 import { SafeAreaView, StatusBar, StyleSheet } from "react-native";
 import { ActivityIndicator } from "react-native-paper";
 import Background from "../components/Background";
@@ -18,15 +17,9 @@ const styles = StyleSheet.create({
   },
 });
 
-const ArticleList = ({
-  route: {
-    params: { user },
-  },
-}) => {
-  // const [articles, setArticles] = useState([]);
-  // const [nextArticles, setNextArticles] = useState([]);
+const ArticleList = ({ navigation }) => {
   const [page, setPage] = useState(0);
-  const [pageSize, setPageSize] = useState(5);
+  const [pageSize, setPageSize] = useState(10);
   const [refreshing, setRefreshing] = useState(false);
 
   const {
@@ -46,7 +39,6 @@ const ArticleList = ({
   useEffect(() => {
     const fetchData = async (page) => {
       try {
-        console.log("page", page);
         if (page) {
           await fetchMore({
             variables: { limit: pageSize, start: page * pageSize },
@@ -67,7 +59,6 @@ const ArticleList = ({
 
   return (
     <Background>
-      {/* <ListHeader title="Asia Morning Line" /> */}
       <ListHeader
         title={`Asia Morning Line - ${
           networkStatus === NetworkStatus.fetchMore
@@ -85,13 +76,15 @@ const ArticleList = ({
           onEndReached={() => {
             setPage(page + 1);
           }}
+          onItemPress={(item) => {
+            navigation.navigate("ArticleDetailScreen", { item });
+          }}
           onRefresh={() => {
             setPage(0);
           }}
         />
         <ActivityIndicator
-          hidesWhenStopped
-          animating={isLoading}
+          isLoading={isLoading}
           style={styles.activityIndicator}
         />
       </SafeAreaView>

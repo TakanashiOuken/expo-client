@@ -1,58 +1,29 @@
-import _get from "lodash-es/get";
 import moment from "moment";
 import React from "react";
-import { StyleSheet, View } from "react-native";
-import HTMLView from "react-native-htmlview";
-import { Text } from "react-native-paper";
-import Thumbnail from "./Thumbnail";
+import { List, Subheading, Title } from "react-native-paper";
+import Image from "./ImageSpinner";
 
-const styles = StyleSheet.create({
-  item: {
-    paddingTop: 10,
-  },
-  title: {
-    paddingTop: 20,
-    fontSize: 18,
-    fontWeight: "500",
-    width: "100%",
-  },
-  box: {
-    paddingLeft: 10,
-    paddingRight: 10,
-  },
-});
-
-const fontSize = 18;
-const htmlStyles = StyleSheet.create({
-  a: {
-    fontWeight: "300",
-    fontSize,
-  },
-  p: {
-    fontSize,
-  },
-  strong: {
-    fontWeight: "bold",
-    fontSize,
-  },
-  li: {
-    fontSize,
-  },
-});
-
-const ListItem = ({ item }) => (
-  <View key={item.id} style={styles.item}>
-    <Thumbnail path={_get(item, "thumbnail.url")} />
-    <View style={styles.box}>
-      <Text style={styles.title}>{item.reportName}</Text>
-      <HTMLView stylesheet={htmlStyles} value={item.title} />
-      {item.publishedDate && moment(item.publishedDate).isValid() ? (
-        <Text>
-          Publish Date: {moment(item.publishedDate).format("d MMM yyyy")}
-        </Text>
-      ) : null}
-    </View>
-  </View>
+const ListItem = ({ item, onPress }) => (
+  <List.Item
+    description={
+      item.ra_pub_date && moment(item.ra_pub_date).isValid() ? (
+        <Subheading>
+          Publish Date: {moment(item.ra_pub_date).format("d MMM yyyy")}
+        </Subheading>
+      ) : null
+    }
+    right={(props) => (
+      <Image
+        {...props}
+        style={{ height: 110, width: 110 }}
+        url={item.ra_thumbnail_url}
+      />
+    )}
+    title={<Title>{item.ra_title}</Title>}
+    onPress={() => {
+      onPress(item);
+    }}
+  />
 );
 
 export default ListItem;
